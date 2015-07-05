@@ -13,19 +13,21 @@ when the header is present.
 Add the following to your `Gemfile`
 
 ```ruby
-TODO
+gem 'rack-csrf-detector', :require => 'rack/csrf_detector'
 ```
 
 And include the middleware in your `development.rb`
 
 ```ruby
-TODO
+config.middleware.use "Rack::CsrfDetector"
 ```
 
 Note: Do not run this in production.
 
-You can install the chrome extension.
+You can also install the chrome extension:
 
-```bash
-$ chrome `pwd`/chrome-extension
 ```
+More Tools | Extensions | Developer mode | Load Unpacked extension...
+```
+
+And select the `chrome-extension` folder in this repo.
