@@ -19,7 +19,10 @@ gem 'rack-csrf-detector', :require => 'rack/csrf_detector'
 And include the middleware in your `development.rb`
 
 ```ruby
-config.middleware.use "Rack::CsrfDetector"
+config.middleware.use "Rack::CsrfDetector" do
+  use Rack::CsrfDetector::ActiveRecordInstrument
+  use Rack::CsrfDetector::SidekiqInstrument
+end
 ```
 
 Note: Do not run this in production.
