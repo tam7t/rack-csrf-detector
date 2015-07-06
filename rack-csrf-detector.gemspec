@@ -8,7 +8,8 @@ application state-change"
   s.authors     = ["Tommy Murphy"]
   s.email       = 'tommy.murphy@gmail.com'
   s.files       = ["lib/rack/csrf_detector.rb",
-                   "lib/rack/csrf_detector/active_record_instrument.rb"]
+                   "lib/rack/csrf_detector/active_record_instrument.rb",
+                   "lib/rack/csrf_detector/sidekiq_instrument.rb"]
   s.homepage    = 'https://github.com/tam7t/rack-csrf-detector'
   s.license     = 'MIT'
 end
