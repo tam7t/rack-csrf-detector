@@ -2,9 +2,16 @@ module Rack
   class CsrfDetector
     @@bad_count = 0
 
-    def initialize(app)
+    def initialize(app, opts={}, &block)
       @app = app
-      🙉_activerecord!
+
+      if block_given?
+        if block.arity == 1
+          block.call(self)
+        else
+          instance_eval(&block)
+        end
+      end
     end
 
     def call(env)
@@ -24,38 +31,8 @@ module Rack
 
     private
 
-    def 🙉_activerecord!
-      if ActiveRecord::VERSION::STRING.match(/^4.2/)
-        🙉_activerecord_4_2!
-      else
-        🙉_activerecord_4_0!
-      end
-    end
-
-    def 🙉_activerecord_4_0!
-      require 'active_record/connection_adapters/abstract/transaction'
-
-      ActiveRecord::ConnectionAdapters::OpenTransaction.class_eval do
-        commit_method = instance_method(:commit)
-
-        define_method :commit do
-          Rack::CsrfDetector.more_bad!
-          commit_method.bind(self).call
-        end
-      end
-    end
-
-    def 🙉_activerecord_4_2!
-      require 'active_record/connection_adapters/abstract/transaction'
-
-      ActiveRecord::ConnectionAdapters::Transaction.class_eval do
-        commit_method = instance_method(:commit)
-
-        define_method :commit do
-          Rack::CsrfDetector.more_bad!
-          commit_method.bind(self).call
-        end
-      end
+    def use(klass)
+      klass.new.use!
     end
   end
 end
