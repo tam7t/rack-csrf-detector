@@ -1,7 +1,7 @@
-require 'active_record/connection_adapters/abstract/transaction'
-
 class Rack::CsrfDetector::ActiveRecordInstrument
   def use!
+    require 'active_record/connection_adapters/abstract/transaction'
+
     if ActiveRecord::VERSION::STRING.match(/^4.2/)
       🙉_activerecord_4_2!
     else

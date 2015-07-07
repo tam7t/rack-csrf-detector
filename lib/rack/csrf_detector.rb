@@ -5,6 +5,9 @@ module Rack
     def initialize(app, opts={}, &block)
       @app = app
 
+      require 'rack/csrf_detector/active_record_instrument'
+      require 'rack/csrf_detector/sidekiq_instrument'
+
       if block_given?
         if block.arity == 1
           block.call(self)

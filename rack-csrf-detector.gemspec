@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'rack-csrf-detector'
-  s.version     = '0.2.0'
+  s.version     = '0.2.1'
   s.date        = '2015-07-06'
   s.summary     = "Automated CSRF detection middleware"
   s.description = "This middleware helps you identify when a GET request results in an
